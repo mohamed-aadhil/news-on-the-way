@@ -1,0 +1,118 @@
+<%-include('partials/app_template');-%>
+<div class="app-container">
+    <header>
+        <button class="toggle flex-item"><i class="fa-sharp fa-solid fa-bars fa-lg"></i></button>
+        <div class="flex-item">
+            <a href="#" class="logo"> <i class="fa-solid fa-globe fa-lg brand-icon"></i>News Lounge</a>
+            <div class="timeBoard">
+              <p id="timeDate"></p>
+            </div>
+        </div>
+        <% if(user){%>
+          <%console.log(user)%>
+          <% var username=user.username%>
+          <% var firstchar = username.substring(0,1).toUpperCase()%> 
+          
+          <div class="dropdown menu profile-menu">
+            <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="profile-btn">
+              <%=firstchar%>
+            </button>
+            <ul class="dropdown-menu acct-info"   aria-labelledby="dropdownMenuButton1">
+              <li><h6 id="user">Hi <%=username%></h6></li>
+              <li><button class="dropdown-item btn-share spl-button" onclick="window.location.href='/signout'" ><img class="nav-icon" src="/Images/logout.png" alt="logout">Sign out</button></li>
+            </ul>
+          </div>
+          
+        <%} else{%> 
+          <%console.log(user)%> 
+        <button class="btn-lgn flex-item">Sign in</button>
+        <%}%>
+    </header>
+  
+   <main>
+        <aside class="navbar">
+            <ul class = "nav-list">
+                <li class="menu-item">
+                    <button type="button" class="option"><i class="fa-regular fa-newspaper fa-lg nav-icon"></i>General</button>
+                </li>
+                <li class="menu-item">
+                    <button type="button" class="option"><i class="fa-solid fa-money-check-dollar fa-lg nav-icon"></i>Business</button>
+                </li>
+                <li class="menu-item">
+                    <button type="button" class="option"><i class="fa-solid fa-film fa-lg nav-icon"></i>Entertainment</button>
+                </li>
+                <li class="menu-item">
+                    <button type="button" class="option"><i class="fa-solid fa-heart-pulse fa-lg nav-icon"></i>Health</button>
+                </li>
+                <li class="menu-item">
+                    <button type="button" class="option"><i class="fa-solid fa-microscope fa-lg nav-icon"></i>Science</button>
+                </li>
+                <li class="menu-item">
+                    <button type="button" class="option"><i class="fa-solid fa-baseball-bat-ball fa-lg nav-icon"></i>Sports</button>
+                </li>
+                <li class="menu-item">
+                    <button type="button" class="option"><i class="fa-sharp fa-solid fa-microchip fa-lg nav-icon"></i>Technology</button>
+                </li>
+                <li class="menu-item">
+                    <button type="button" class="spl-option" onclick="window.location.href='/articles'">
+                    <i class="fa-solid fa-bookmark fa-lg nav-icon"></i>Saved Articles</button>
+                </li>
+            </ul>
+        </aside>
+  <article class="news-container">
+     <% if(articles.length===0) {%>
+        <h2>No articles have been saved yet</h2>
+      <%} else{%> 
+      <% articles.forEach(post=>{%> 
+          <div class="news-card" id="<%=post._id%>">
+  
+              <div class="dropdown menu">
+                <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="feature-btn">
+                  <i class="fa-solid fa-ellipsis-vertical fa-1x"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><button class="dropdown-item unsave-button" href="#" id="<%=post._id%>">Unsave Article</button></li>
+                  <li><button class="dropdown-item btn-share">Share Article</button></li>
+                </ul>
+              </div>
+              
+              <img src = <%=post.urlToImage||dummyImg%> alt="Image" class="news-img">
+  
+              <div class ="news-content">
+  
+                <p class="news-title">
+                  <%=post.title%>
+                </p>
+  
+                <div class="redirect">
+                  <a href=<%=post.url%> target="_blank" class="view-button" >Read More</a>
+                </div>
+  
+              </div>
+  
+          </div>
+      <%}) %>
+      <% } %>
+  </article>
+  </main>
+</div>
+  
+<script>
+  document.addEventListener("DOMContentLoaded",displayCurrentTime)
+  function displayCurrentTime() {
+    var currentTimeElement = document.getElementById("timeDate"); 
+    function updateCurrentTime() {
+      var currentDateTime = new Date();
+      var formattedDateTime = currentDateTime.toLocaleString();
+      currentTimeElement.innerHTML = `${formattedDateTime}`;
+    }
+    updateCurrentTime();
+    setInterval(updateCurrentTime, 1000);
+  }
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="\JS\actions.js"></script>
+  </body>
+  </html>
+  

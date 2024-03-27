@@ -1,0 +1,199 @@
+<%-include('partials/app_template');-%>
+<div class="app-container">
+  <header>
+      <button class="toggle flex-item"><i class="fa-sharp fa-solid fa-bars fa-lg"></i></button>
+      <div class="flex-item">
+          <a href="#" class="logo"> <i class="fa-solid fa-globe fa-lg brand-icon"></i>Newsontheway</a>
+          <div class="timeBoard">
+            <p id="timeDate"></p>
+          </div>
+      </div>
+
+      <div class="search-widget">
+        <form action="/search" method="post" class="search flex-item" id="search" autocomplete="off">
+          <input type="search" name="search" placeholder="search" id="searchBar">
+          <button type="submit" class="searchSubmit"><i class="fa-brands fa-searchengin fa-lg"></i></button>
+        </form>
+        <ul id="suggestions"></ul>
+      </div>
+      
+      <% if(user){%>
+        <% var username=user.username%>
+        <% var firstchar = username.substring(0,1).toUpperCase()%> 
+        
+        <div class="dropdown menu profile-menu">
+          <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="profile-btn">
+            <%=firstchar%>
+          </button>
+          <ul class="dropdown-menu acct-info"   aria-labelledby="dropdownMenuButton1">
+            <li><h6 id="user">Hi, <%=username%></h6></li>
+            <li><button class="dropdown-item btn-share spl-button" onclick="window.location.href='/signout'" ><img class="lgt-icon" src="/Images/logout.png" alt="logout">Sign out</button></li>
+          </ul>
+        </div>
+        
+      <%} else{%> 
+        <button class="btn-lgn flex-item" onclick="windows.location.href='/'">Sign in</button>
+      <%}%>
+  </header>
+
+  <main class="core-container">
+        <aside class="navbar">
+            <ul class = "nav-list">
+              <li class="menu-item">
+                <button type="button" class="option"><i class="fa-regular fa-newspaper fa-lg nav-icon"></i>General</button>
+            </li>
+            <li class="menu-item">
+                <button type="button" class="option"><i class="fa-solid fa-money-check-dollar fa-lg nav-icon"></i>Business</button>
+            </li>
+            <li class="menu-item">
+                <button type="button" class="option"><i class="fa-solid fa-film fa-lg nav-icon"></i>Entertainment</button>
+            </li>
+            <li class="menu-item">
+                <button type="button" class="option"><i class="fa-solid fa-heart-pulse fa-lg nav-icon"></i>Health</button>
+            </li>
+            <li class="menu-item">
+                <button type="button" class="option"><i class="fa-solid fa-microscope fa-lg nav-icon"></i>Science</button>
+            </li>
+            <li class="menu-item">
+                <button type="button" class="option"><i class="fa-solid fa-baseball-bat-ball fa-lg nav-icon"></i>Sports</button>
+            </li>
+            <li class="menu-item">
+                <button type="button" class="option"><i class="fa-sharp fa-solid fa-microchip fa-lg nav-icon"></i>Technology</button>
+            </li>
+            <li class="menu-item">
+              <button type="button" class="spl-option" id = "check-auth" onclick="window.location.href='/articles'"><i class="fa-solid fa-bookmark fa-lg nav-icon"></i>Saved Articles</button>
+            </li>
+          </ul>
+        </aside>
+        <article class="news-container">
+          <div class="display-carousel">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active news-post" id="0">
+                  <div class="dropdown menu">
+                    <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="feature-btn">
+                      <i class="fa-solid fa-ellipsis-vertical fa-1x"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><button class="dropdown-item save-button spl-button" id="0">Save Article</button></li>
+                      <li><button class="dropdown-item btn-share spl-button" id="0">Share Article</button></li>
+                    </ul>
+                  </div>
+                  <img src= <%=articles[0].urlToImage||dummyImg%> class="d-block w-100 img-carousel" alt="image">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5><%=articles[0].title%></h5>
+                    <div class="redirect">
+                      <a href=<%=articles[0].url%> target="_blank" class="view-button">Read More</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="carousel-item news-post" id="1">
+                  <div class="dropdown menu">
+                    <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="feature-btn">
+                      <i class="fa-solid fa-ellipsis-vertical fa-1x"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><button class="dropdown-item save-button spl-button" id="1">Save Article</button></li>
+                      <li><button class="dropdown-item btn-share spl-button" id="1">Share Article</button></li>
+                    </ul>
+                  </div>
+                  <img src= <%=articles[1].urlToImage||dummyImg%> class="d-block w-100 img-carousel" alt="image">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5><%=articles[1].title%></h5>
+                    <div class="redirect">
+                      <a href=<%=articles[1].url%> target="_blank" class="view-button">Read More</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="carousel-item news-post" id="2">
+                  <div class="dropdown menu">
+                    <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="feature-btn">
+                      <i class="fa-solid fa-ellipsis-vertical fa-1x"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><button class="dropdown-item save-button spl-button" id="2">Save Article</button></li>
+                      <li><button class="dropdown-item btn-share spl-button" id="2">Share Article</button></li>
+                    </ul>
+                  </div>
+                  <img src= <%=articles[2].urlToImage||dummyImg%> class="d-block w-100 img-carousel" alt="image">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5><%=articles[2].title%></h5>
+                    <div class="redirect">
+                      <a href=<%=articles[2].url%> target="_blank" class="view-button">Read More</a>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next " id="automatic-trigger" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        <% var counter = 3 %>
+          <% articles.slice(3).forEach(post=>{%> 
+              <div class="news-card news-post" id="<%=counter%>">
+      
+                  <div class="dropdown menu">
+                    <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="feature-btn">
+                      <i class="fa-solid fa-ellipsis-vertical fa-1x"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><button class="dropdown-item save-button spl-button" id="<%=counter%>">Save Article</button></li>
+                      <li><button class="dropdown-item btn-share spl-button" id="<%=counter%>">Share Article</button></li>
+                    </ul>
+                  </div>
+                  
+                  <img src = <%=post.urlToImage||dummyImg%> alt="Image" class="news-img">
+      
+                  <div class ="news-content">
+      
+                    <p class="news-title">
+                      <%=post.title%>
+                    </p>
+      
+                    <div class="redirect">
+                      <a href=<%=post.url%> target="_blank" class="view-button">Read More</a>
+                    </div>
+      
+                  </div>
+      
+              </div>
+              <% counter = counter + 1%>
+          <%}) %>
+      </article>
+  </main>
+</div>
+<script>
+
+    /*timer*/
+    document.addEventListener("DOMContentLoaded",displayCurrentTime)
+    function displayCurrentTime() {
+      var currentTimeElement = document.getElementById("timeDate");
+        
+      function updateCurrentTime() {
+        var currentDateTime = new Date();
+        var formattedDateTime = currentDateTime.toLocaleString();
+        currentTimeElement.innerHTML = `${formattedDateTime}`;
+      }
+      updateCurrentTime();
+      setInterval(updateCurrentTime, 1000);
+    }
+    
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="\JS\actions.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+/*logo*/
+.app-logo {
+   margin:40px 0;
+   text-align: center;
+}
+
+.logo{
+   color:#181818;
+   text-decoration: none;
+   font-family: 'Ubuntu', sans-serif;
+   font-size: 2rem;
+}
+
+.logo>.brand-icon{
+   margin-right: 8px;
+}
+
+/*Login and signUp forms*/
+    .pop-up{
+        margin-top: 20px;
+        position:absolute;
+        top: 50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+    }
+   
+   .forms{
+      width:400px;
+      height: 450px;
+      background-color: #282828;
+      border-radius: 20px;;
+      font-family: 'Ubuntu',sans-serif;
+   }
+   
+   .form-wrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height:100%;
+      transition: 1s ease-in-out;
+   }
+   
+   .forms.active .form-wrapper.signIn{
+      transform: translateY(-470px);
+   }
+   
+   .forms .form-wrapper.signUp{
+      position: absolute;
+      top: 470px;
+      left:0;
+   }
+   
+   .forms.active .form-wrapper.signUp{
+      transform: translateY(-470px);
+   }
+   
+   h3{
+      color: #fff;
+      text-align: center;
+      font-size: 30px;
+   }
+   
+   .entry-field{
+      position: relative;
+      margin: 40px 0;
+      border-bottom:2px solid #fff;
+   }
+
+   .entry-field-fgpwd{
+    position: relative;
+    margin:40px 0 0 0;
+    border-bottom:2px solid #fff;
+  }
+
+   .entry-field label, .entry-field-fgpwd label{
+      position :absolute;
+      top:50%;
+      left:5px;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: #fff;
+      pointer-events: none;
+      transition: 0.5s;
+   }
+   
+   .entry-field input, .entry-field-fgpwd input{
+      width:300px;
+      height:40px;
+      padding:0 5px;
+      color: #00acee;
+      font-size: 1rem;
+      background: none;
+      border:none;
+      outline:none;
+   }
+   #F1-name-err,#F1-pwd-err,#F2-name-err,#F2-email-err,#F2-pwd-err{
+    margin-top:5px;
+    font-size:12px;
+    color:#00acee;
+   }
+   
+   .entry-field input:focus~label,.entry-field input:valid~label,.entry-field-fgpwd input:focus~label,.entry-field-fgpwd input:focus~label{
+      top:-5px;
+   }
+   
+   input[type="submit"]{
+      position:relative;
+      width:100%;
+      height:40px;
+      background-color:#00acee ;
+      font-size: 1rem;
+      color: #fff;
+      font-weight: bold;
+      cursor:pointer;
+      border-radius: 30px;
+      border:none;
+      outline:none;
+   }
+   
+   .frgt-pwd{
+      font-size: 14px;
+      text-align: right;
+      margin-bottom: 40px;
+   }
+
+   .Sign-up, .Sign-in{
+      font-size: 14px;
+      text-align: center;
+      margin: 15px 0;
+   }
+   
+   .Sign-in p, .Sign-up p{
+      color:#fff;
+   }
+
+   .frgt-pwd span,.Sign-in p span, .Sign-up p span{
+      color:#00acee;
+      text-decoration: none;
+      font-weight: normal;
+      cursor: pointer;
+   }
+   
+   .Sign-in p span:hover, .Sign-up p span:hover, .frgt-pwd:hover{
+      text-decoration: underline;
+   }
+
+   .close-form{
+      display: none;
+   }
+
+   /*Forget-password*/
+
+   .frgtpwd-pop-up{
+      display: none;
+   }
+
+   .frgtpwd{
+      width:400px;
+      height:250px;
+      position:absolute;
+      z-index: 2;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      display:flex;
+      flex-direction: column;
+      background-color:#121212;
+      border-radius:15px;
+      color:#fff;
+      padding:15px;
+  }
+  
+  .frgtpwd form{
+      margin-top:20px;
+  }
+  
+  .frgtpwd form>*{
+      margin-bottom: 20px;
+  }
+  
+  .frgt-btn-exit form h3{
+      font-family: 'Ubuntu', sans-serif;
+      text-align: center;
+      font-weight: normal;
+  }
+
+  .frgtpwd>.frgt-btn-exit{
+   position: absolute;
+   top:12px;
+   right:12px;
+   cursor: pointer;
+}
+  
+  .frgtpwd form input[type="email"]{
+      border:1px solid #fff;
+      outline:none;
+      width:100%;
+      height: 40px;
+      border-radius:10px;
+      background-color: #404040;
+      padding:8px;
+      font-family: 'Ubuntu', sans-serif;
+      color:#fff;
+  }
+  
+  ::placeholder{
+      font-family: 'Ubuntu', sans-serif;
+      color: #d3d3d3;
+  }
+
+  .active-sh-popup,.active-frgtpwd-pop-up{
+      display: block;
+   }
+
+   /*mobile-view*/
+
+   @media screen and (max-width:468px){
+    .forms{
+        width:300px;
+        height: 420px;
+    }
+    .entry-field input, .entry-field-fgpwd input{
+        width:250px;
+   }
+   .frgtpwd{
+      width:300px;
+      height:250px;
+   }
+}

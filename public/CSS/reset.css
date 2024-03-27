@@ -1,0 +1,26 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.app-logo {
+    text-align: center;
+}
+
+.logo{
+    color:#181818;
+    text-decoration: none;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2rem;
+}
+
+.logo>.brand-icon{
+    margin-right: 8px;
+}

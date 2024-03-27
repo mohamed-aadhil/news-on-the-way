@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsontheway</title>
+    <link rel="icon" href="../public/Images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="app-logo">
+        <a href="#" class="logo"><i class="fa-solid fa-globe fa-lg brand-icon"></i>Newsontheway</a>
+    </div>
+    <div class="pop-up">
+        <div class="forms">
+            <div class="form-wrapper signIn">
+                <form autocomplete="off" id="form-signIn">
+                    <h3>Sign In</h3>
+                    <section class="entry-field">
+                        <input type="text" id="User_Name" name="Username" required>
+                        <label for="User_Name">Username</label>
+                    </section>
+                    <p id = "F1-name-err"></p>
+                    <section class="entry-field-fgpwd">
+                        <input type="password" id="password" name="Password" required>
+                        <label for="Password">Password</label>
+                    </section>
+                    <p id = "F1-pwd-err"></p>
+                    <section class="frgt-pwd">
+                        <span id="reset-pwd">Forgot Password?</span>
+                    </section>
+                    <input type="submit" value="Sign In">
+                    <section class="Sign-in">
+                        <p>Don't have an account? <span class="signInLink">Sign Up</span></p>
+                    </section>
+                </form>
+            </div>
+            <div class="form-wrapper signUp">
+                <form autocomplete="off" id="form-signUp">
+                    <h3>Sign Up</h3>
+                    <section class="entry-field">
+                        <input type="text" id="User_Name" name="Username" required>
+                        <label for="User_Name">User Name</label>
+                    </section>
+                    <p id = "F2-name-err"></p>
+                    <section class="entry-field">
+                        <input type="email" id="E-mail" name="Email"required>
+                        <label for="E-mail">Email</label>
+                    </section>
+                    <p id = "F2-email-err"></p>
+                    <section class="entry-field">
+                        <input type="password" id="password" name="Password" required>
+                        <label for="Password">Password</label>
+                    </section>
+                    <p id = "F2-pwd-err"></p>
+                    <input type="submit" value="Sign Up">
+                    <section class="Sign-up">
+                        <p>Already have an account? <span href="#"class="signUpLink">Sign In</span></p>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="frgtpwd-pop-up">
+        <div class="frgtpwd">
+            <i class="fa-solid fa-xmark frgt-btn-exit" style="color: #ffffff;"></i>
+            <form action="/forgetPassword" method="post" id="forgetPassword" autocomplete="off">
+                <h3>Forgot Password</h3>
+                <input type="email" name="Email" placeholder="Enter your registered email...">
+                <p id="email-error"></p>
+                <input type="submit" value="Reset link">
+            </form>  
+        </div>       
+    </div>
+    <script>
+
+        /*forms - Animation*/
+
+        const signUpLink=document.querySelector('.signUpLink');
+        const signInLink=document.querySelector('.signInLink');
+        const forms=document.querySelector(".forms");
+        signUpLink.addEventListener('click',()=>{
+            forms.classList.toggle('active');
+        })
+        signInLink.addEventListener('click',()=>{
+            forms.classList.toggle('active');
+        });
+
+        //signin form 
+
+        const signInForm = document.getElementById("form-signIn");
+        const usernameErr = (document).getElementById("F1-name-err")
+        const passwordErr = (document).getElementById("F1-pwd-err")
+        signInForm.addEventListener("submit",async(e)=>{
+        e.preventDefault()
+        const username = signInForm.Username.value
+        const password = signInForm.Password.value
+        try {
+            const res = await fetch("/signin",{
+            method:'POST',
+            body:JSON.stringify({username,password}),
+            headers:{'Content-Type':'application/json'}
+            })
+            const data = await res.json()
+            console.log(data)
+            if(data.errors){
+            usernameErr.innerText = data.errors.username
+            passwordErr.innerText = data.errors.password
+            }
+            if(data.user){
+            location.assign('/');
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+        })
+
+        //signup form 
+
+        const signUpForm = document.getElementById("form-signUp");
+        const usernameError = (document).getElementById("F2-name-err")
+        const emailError = (document).getElementById("F2-email-err")
+        const passwordError = (document).getElementById("F2-pwd-err")
+        signUpForm.addEventListener("submit",async(e)=>{
+        e.preventDefault()
+        const username = signUpForm.Username.value
+        const email = signUpForm.Email.value
+        const password = signUpForm.Password.value
+        try {
+            const res = await fetch("/signup",{
+            method:'POST',
+            body:JSON.stringify({username,email,password}),
+            headers:{'Content-Type':'application/json'}
+            })
+            const data = await res.json()
+            console.log(data)
+            if(data.errors){
+            usernameError.innerText = data.errors.username
+            emailError.innerText = data.errors.email
+            passwordError.innerText = data.errors.password
+            }
+            if(data.user){
+            location.assign('/');
+            }
+            
+        } catch (error) {
+            console.log(error)
+        }
+        })
+
+
+        /*forget password*/
+        $(".frgt-btn-exit").on('click',function(){
+            $(".frgtpwd-pop-up").removeClass("active-frgtpwd-pop-up");
+            $(".pop-up").removeClass("close-form")
+        });
+        
+        $("#reset-pwd").on('click',function(){
+            $(".pop-up").addClass("close-form")
+            $(".frgtpwd-pop-up").addClass("active-frgtpwd-pop-up");
+        });
+
+        const frgtpwdForm = document.getElementById("forgetPassword");
+        const mailError = (document).getElementById("email-error");
+        frgtpwdForm.addEventListener("submit",async(e)=>{
+        e.preventDefault()
+        const email = frgtpwdForm.Email.value
+        try {
+            const res = await fetch("/forgetPassword",{
+            method:'POST',
+            body:JSON.stringify({email}),
+            headers:{'Content-Type':'application/json'}
+            })
+            const data = await res.json()
+            console.log(data)
+            if(data.error){
+            mailError.innerText = data.error
+            }
+            if(data.user){
+            alert(`Your Reset link is : ${data.user}`)
+            }
+            
+        } catch (error) {
+            console.log(error)
+        }
+        })
+    </script>
+</body>
+</html>

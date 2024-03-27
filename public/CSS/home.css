@@ -1,0 +1,597 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    position:relative;
+}
+
+/*Share-widget*/
+
+.app-bg{
+    background: #121212;
+    opacity:0.5;
+ }
+ 
+.share-popup{
+    display: none;
+ }
+ 
+ .share{
+     width:300px;
+     height:180px;
+     position:absolute;
+     z-index: 3;
+     top:50%;
+     left:50%;
+     transform:translate(-50%,-50%);
+     display:flex;
+     justify-content: space-around;
+     align-items: center;
+     background-color:#121212;
+     border-radius:15px;
+     color:#fff;
+     margin:10px;
+ }
+ 
+ .share>.sh-btn-exit,.frgtpwd>.frgt-btn-exit{
+     position: absolute;
+     top:12px;
+     right:12px;
+     cursor: pointer;
+ }
+ 
+ .share>.sh-option{
+     width:auto;
+     height:auto;
+     text-align: center;
+     cursor:pointer;
+ }
+ 
+ .share>.sh-option>img{
+     width:25px;
+     height:25px;
+ }
+ 
+ .active-sh-popup{
+     display: block;
+ }
+
+/*flexible layout*/
+
+.app-container{
+    display:flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/*Header*/
+
+header{
+    height:auto;
+    padding: 15px ;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: black;
+    border-bottom: 2px solid #fff;
+}
+
+.toggle{
+    display: none;
+    color: #fff;
+    background:none;
+    border: none;
+    outline:none;
+}
+
+.logo{
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2rem;
+}
+
+.logo>.brand-icon{
+    margin-right: 8px;
+}
+
+.search{
+    align-self: center;
+    display: flex;
+}
+
+.search-widget{
+    align-self: center;
+    position: relative;
+}
+
+.search>#searchBar{
+    margin-right:-5px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding:5px 5px 5px 10px;
+    border:none;
+    outline:none;
+    font-family: 'Ubuntu', sans-serif;
+}
+.search>.searchSubmit{
+    align-self: baseline;
+    color: #fff;
+    background: #00acee;
+    border:none;
+    outline:none;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding:5px;
+}
+
+#suggestions{
+    margin-top: 5px;
+    padding:0;
+    box-sizing: border-box;
+    border-radius:10px;
+    position: absolute;
+    z-index: 1;
+    top:100%;
+    left: 0;
+    width:100%;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color:#FFF;
+    color:#000000;
+    list-style-type: none;
+}
+
+#suggestions>li{
+    padding:5px 5px 5px 10px;
+    cursor:pointer;
+}
+
+#suggestions>li:hover{
+    background-color: #d3d3d3;
+}
+
+#suggestions::-webkit-scrollbar {
+    width: 10px; 
+  }
+  
+  #suggestions::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  #suggestions::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 6px;
+  }
+  
+  #suggestions::-webkit-scrollbar-thumb:hover {
+    background-color: #555; 
+  }
+
+.btn-lgn{
+    align-self: center;
+    background-color: #00acee;
+    color: white;
+    width: 100px;
+    padding:3px;
+    border-radius: 10px;
+    border:2px solid white;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: normal;
+    transition: 0.5s;
+}
+
+.profile-menu{
+    align-self: center;
+}
+
+.profile-btn{
+    font-size: 1.2rem;
+    color:#fff;
+    padding:10px 20px;
+    background:#00acee;
+    border-radius: 50px;
+    border:none;
+    outline:none;
+    cursor: pointer;
+}
+
+.acct-info>li{
+    text-align: center;
+    margin-top: 10px;
+}
+
+#user{
+    color:#00acee;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1rem;
+}
+
+.lgt-icon{
+    width: 18px;
+    height: 18px;
+    color:#00acee;
+    margin-right: 10px;
+}
+
+
+.btn-lgn:hover{
+    transform: scale(1.1,1.1);
+}
+
+.timeBoard{
+    color:#fff;
+    display: block;
+}
+
+#timeDate{
+    padding:0;
+    margin:0;
+    text-align:center;
+    font-size: 1rem;
+}
+
+/* Main */
+
+main{
+   display: flex;
+   flex: row nowrap;
+   overflow-y: hidden;
+   height: 85vh;
+}
+
+/* Navigation Bar */
+
+main > .navbar{
+    height:85vh;
+    flex: 0 0 18vw;
+    background-color: #000000;
+    padding: 6px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1rem;
+}
+
+.navbar>.nav-list{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.spl-option>.nav-icon,.option>.nav-icon{
+    margin-right: 8px;
+}
+
+.nav-list>.menu-item{
+    list-style-type:none;
+    margin: 15px 0px;
+}
+
+.navbar li button{
+    color:#fff;
+    padding: 8px;
+    height: 35px;
+    width:100%;
+    text-align: left;
+    font-size: 1.1rem;
+    background-color: #000000;
+    border:none;
+    outline:none;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+   
+.navbar li button:hover{
+   background-color: grey;
+   border-top-right-radius: 20px;
+   border-bottom-right-radius: 20px;
+}
+
+#active-opt{
+   background-color: #00acee;
+   border-top-right-radius: 20px;
+   border-bottom-right-radius: 20px;
+}
+
+/*News Container*/
+
+main > .news-container{
+    height: auto;
+    width: 85vw;
+    background: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%);
+    overflow-y: auto;
+    display:flex;
+    flex-wrap:wrap;
+    padding: 10px;
+    justify-content: space-between;
+  }
+
+  main > .news-container::-webkit-scrollbar {
+    width: 13px; 
+  }
+  
+  main > .news-container::-webkit-scrollbar-track {
+    background: #fff; 
+  }
+  
+  main > .news-container::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3; 
+    border-radius: 15px;
+  }
+  
+ .display-carousel{
+     width:100%;
+     height: 50vh;
+     border-radius: 10px;
+ }
+
+ .img-carousel{
+    width:auto;
+    height:50vh;
+    border-radius: 10px;
+ }
+
+ .carousel-item{
+    position:relative;
+}
+
+.carousel-item>.menu{
+    position:absolute;
+    top:15px;
+    right:15px;
+    z-index:2;
+    color: #fff;
+  }
+
+.news-card{
+    position: relative;
+    display:flex;
+    flex-direction:column;
+    color: #fff;
+    width:30%;
+    height:auto;
+    margin:10px 0;
+    border-radius: 10px;
+    border:1px solid black;
+  }
+
+.news-img{
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+  }
+
+.news-card>.menu{
+    position:absolute;
+    z-index:1;
+    align-self: flex-end;
+    margin: 10px 10px 0 0;
+    color: #fff;
+}
+
+.menu > .feature-btn{
+    color:#fff;
+    padding:5px;
+    background:black;
+    border-radius: 100px;
+    border:none;
+    outline:none;
+}
+
+.info{
+    margin: auto;
+    font-family: 'Ubuntu',sans-serif;
+    font-weight: 100;
+}
+
+.dropdown-menu{
+ background-color: black;
+}
+
+.dropdown-item{
+ background-color: black;
+ color: #fff;
+}
+
+.news-content{
+  display: flex;
+  flex-direction: column;
+  height:auto;
+  align-items: center;
+  justify-content:space-between;
+  margin:10px 0;
+}
+
+.news-title{
+  font-size:1rem;
+  font-weight: 100 ;
+  font-family:'Ubuntu',sans-serif;
+  margin:10px 0;
+}
+
+.view-button{
+  display:inline-block;
+  text-decoration: none;
+  font-size: 1rem;
+  background-color:black;
+  color:#fff;
+  padding:5px;
+  font-family: 'Ubuntu',sans-serif;
+  font-weight: 100;
+  border-radius:10px;
+  margin: 10px 0;
+}
+
+/*Tablet View*/
+
+@media screen and (max-width:768px)
+{
+    .app-container{
+        display:flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+    }
+    .header{
+        display:flex;
+        flex-wrap: wrap;
+        height: auto;
+        justify-content: space-around;
+    }
+    .toggle{
+        display:block;
+    }
+    .logo{
+        font-size: 1.2rem;
+    }
+    
+    .btn-lgn{
+        font-size: 1rem;
+        width:auto;
+    }
+
+    #timeDate{
+        font-size: 0.8rem;
+    }
+
+    .search-widget{
+        margin-top: 10px;
+        order:1;
+        flex-basis: 100%;
+        justify-content: center;    
+    }
+
+    .search-widget>*{
+        width:100%;
+        justify-content: center;
+    }
+
+    main{
+        height: 85vh;
+    }
+
+    main > .navbar{
+        display: none;
+        height: 85vh;
+        overflow-y: auto;
+        position: absolute;
+        z-index: 3;
+        flex: 0 0 30vw;
+    }
+
+    .nav-list>.menu-item{
+        margin: 15px 0px;
+    }
+    
+    main > .news-container{
+        overflow-y: auto;
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: space-around;
+        flex:0 0 100vw;
+    }
+    
+    .news-card{
+        width:45%
+    }
+    
+    .navbar li a{
+        font-size: 1rem;
+    }
+}
+
+/*Mobile View*/
+
+@media screen and (max-width:468px)
+{
+    .forms{
+        width:300px;
+        height: 450px;
+    }
+    .entry-field input, .entry-field-fgpwd input{
+        width:250px;
+   }
+    .app-container{
+        display:flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+    }
+    .header{
+        display:flex;
+        flex-flow:row wrap;
+        justify-content: space-between;
+    }
+    .toggle{
+        display:block;
+    }
+    
+    .search{
+        margin-top: 10px;
+        order:1;
+        flex-basis: 100%;
+        justify-content: center;    
+    }
+
+    .search-widget>*{
+        width:100%;
+        justify-content: center;
+    }
+
+    .logo{
+        font-size: 1rem;
+    }
+
+    .timeDate{
+        font-size: 0.6rem;
+    }
+
+    .btn-lgn{
+        font-size: 1rem;
+        width:auto;
+        align-self: center;
+    }
+
+    main{
+        height: 90vh;
+    }
+
+    main > .navbar{
+        display: none;
+        height:80vh;
+        overflow-y:auto;
+        position: absolute;
+        z-index: 3;
+        flex:0 0 30vw;
+    }
+
+    .nav-list>.menu-item{
+        margin: 12px 0px;
+    }
+
+    main > .news-container{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: space-around;
+        flex:0 0 100vw;
+    }
+
+    .news-card{
+        width:100%;
+    }
+
+    .navbar li a{
+        font-size: 1rem;
+    }
+}
+
+
+
+
+
