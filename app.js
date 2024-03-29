@@ -28,7 +28,7 @@ app.use(express.static(__dirname+"/public"));
 app.set('view engine','ejs');
 
 //connecting to database
-mongoose.connect("mongodb://localhost:27017/usersDB");
+mongoose.connect("mongodb+srv://mohamed-aadhil:"+process.env.PASSWORD+"@cluster0.ncaticf.mongodb.net/users");
 console.log("Connected to MongoDB");
 
 //requirements for external REST API(NEWS API) calls 
