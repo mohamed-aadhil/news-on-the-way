@@ -14,9 +14,7 @@ const {checkUser} = require("./middleware/auth.js");
 
 //Initializing server
 const app = express();
-app.listen(8080,()=>{
-    console.log("Server is running on port 8080.");
-});
+app.listen(process.env.PORT)
 
 //mounting middlewares
 app.use(express.json())
@@ -28,8 +26,7 @@ app.use(express.static(__dirname+"/public"));
 app.set('view engine','ejs');
 
 //connecting to database
-mongoose.connect("mongodb+srv://mohamed-aadhil:"+process.env.PASSWORD+"@cluster0.ncaticf.mongodb.net/users");
-console.log("Connected to MongoDB");
+mongoose.connect(process.env.DATABASE_URL);
 
 //requirements for external REST API(NEWS API) calls 
 const country = "in";
@@ -80,7 +77,6 @@ const createToken = (id)=>{
 
 //user-registration
 app.post('/signup',(req,res)=>{
-  console.log(req.body);
   bcrypt.hash(req.body.password,10, function(err, hash) {
     const userData = {
         username:req.body.username,
@@ -149,10 +145,7 @@ app.post("/forgetPassword",async(req,res)=>{
 
 app.get('/resetPassword/:id/:token',async(req,res)=>{
   const {id,token} = req.params;
-  console.log(id);
   const user = await User.findOne({_id:id})
-  console.log(user);
-  console.log(user._id.valueOf())
   if(id!==user._id.valueOf()){
     res.status(401).json({error:'Invalid ID'});
     res.send("Invalid ID")
@@ -173,8 +166,6 @@ app.post('/resetPassword/:id/:token',async(req,res)=>{
   const {id,token} = req.params;
   const {password,confirmPassword} = req.body;
   const user = await User.findOne({_id:id})
-  console.log(user);
-  console.log(user._id.valueOf())
   if(id!==user._id.valueOf()){
     res.status(401).json({error:'Invalid ID'});
     return
@@ -202,7 +193,6 @@ app.post('/resetPassword/:id/:token',async(req,res)=>{
 //user-signout
 app.get("/signout",(req,res)=>{
   res.cookie("jwt",'',{maxAge:1})
-  console.log("Token destroyed")
   res.redirect("/");
 })
 
@@ -222,7 +212,6 @@ app.get('/check-auth',(req, res) => {
   
 //save article in database
 app.post('/save',checkUser,async(req,res)=>{
-console.log("In save");
 const savedArticle = new SavedArticle(req.body);
 savedArticle.save()
   .then(savedArticle => {
@@ -232,7 +221,6 @@ savedArticle.save()
         user.save()
           .then(() => {
             res.status(201).json({success:'article successfully inserted'})
-            console.log("Successfully saved")
           })
           .catch(error => {
             console.log(error);
@@ -255,7 +243,6 @@ const redirectToArticles = async (req, res) => {
 //delete article in database
 app.post('/delete',checkUser,(req,res)=>{
   const userId =res.locals.user._id ; 
-  console.log(userId);
   const savedArticleId = req.body.id; 
 
   const deleteSavedArticle = async () => {
@@ -278,8 +265,6 @@ app.post('/delete',checkUser,(req,res)=>{
 
       // Delete the saved article document from the SavedArticle collection
       await SavedArticle.deleteOne({_id:savedArticleId});
-      console.log('Saved article deleted successfully');
-
       await redirectToArticles(req, res);
     
     }
@@ -299,7 +284,6 @@ app.post("/search",checkUser,(req,res)=>{
     try{
       const response = await axios.get(`https://newsapi.org/v2/everything?q=${topic}&apiKey=${api_key}&pageSize=6&sortBy=popularity`)
       var data = response.data.articles;
-      console.log(data);
       res.render('home',{articles:data,dummyImg:Img,user:res.locals.user});
   }
   catch(err){
@@ -315,7 +299,6 @@ app.get('/search', (req, res) => {
 
   //fetch and return search suggestions based on the query
     const suggestions = getSearchSuggestions(query);
-    console.log(suggestions);
     res.json({ suggestions });
 });
 

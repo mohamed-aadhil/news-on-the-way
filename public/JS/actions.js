@@ -46,7 +46,6 @@ $(document).ready(function(){
   // save article
   $(".save-button").on('click', (event) => {
     var splButtonId1=event.target.getAttribute('id')
-    console.log(splButtonId1);
     fetch('/check-auth')
       .then(response => response.json())
       .then(data => {
@@ -68,7 +67,6 @@ $(document).ready(function(){
   //share article
   $(".btn-share").on('click', (event) => {
     var splButtonId2=event.target.getAttribute('id');
-    console.log(splButtonId2);
     fetch('/check-auth')
       .then(response => response.json())
       .then(data => {
@@ -90,7 +88,6 @@ $(document).ready(function(){
   //delete article
   $(".unsave-button").on('click', (event) => {
     var postID=event.target.getAttribute('id');
-    console.log(postID);
     fetch('/check-auth')
       .then(response => response.json())
       .then(data => {
@@ -227,7 +224,6 @@ function shareArticle(buttonId){
 
     //share via link
     document.getElementById("cpy-link").addEventListener("click",()=>{
-      console.log(articleURL);
       if (navigator.clipboard) {
         // Clipboard API is supported
         const textToCopy = articleURL;
@@ -247,7 +243,6 @@ function shareArticle(buttonId){
 
     //share via whatsapp
     document.getElementById("whatsappIt").addEventListener("click",()=>{
-      console.log(articleURL);
         const content = `Check out this article: ${articleURL}`; 
       // Create a WhatsApp share link
       const shareURL = 'whatsapp://send?text=' + encodeURIComponent(content);
@@ -256,7 +251,6 @@ function shareArticle(buttonId){
   
     //share via email
     document.getElementById("mailIt").addEventListener("click",()=>{
-      console.log(articleURL);
       const emailSubject = encodeURIComponent('Check out this news article: ' + articleTitle);
       const emailBody = encodeURIComponent('I thought you might find this article interesting:\n' + articleURL);
       window.location.href = 'mailto:?subject=' + emailSubject + '&body=' + emailBody;
@@ -266,7 +260,6 @@ function shareArticle(buttonId){
 //delete article
 function deleteArticle(postId){
   const articleID = postId;
-      console.log(articleID);
       const articleData = {
         id:articleID
       }

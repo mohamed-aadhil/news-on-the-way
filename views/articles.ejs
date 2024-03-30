@@ -9,7 +9,6 @@
             </div>
         </div>
         <% if(user){%>
-          <%console.log(user)%>
           <% var username=user.username%>
           <% var firstchar = username.substring(0,1).toUpperCase()%> 
           
@@ -23,8 +22,7 @@
             </ul>
           </div>
           
-        <%} else{%> 
-          <%console.log(user)%> 
+        <%} else{%>
         <button class="btn-lgn flex-item">Sign in</button>
         <%}%>
     </header>

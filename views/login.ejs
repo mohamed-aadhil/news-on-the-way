@@ -107,7 +107,6 @@
             headers:{'Content-Type':'application/json'}
             })
             const data = await res.json()
-            console.log(data)
             if(data.errors){
             usernameErr.innerText = data.errors.username
             passwordErr.innerText = data.errors.password
@@ -139,7 +138,6 @@
             headers:{'Content-Type':'application/json'}
             })
             const data = await res.json()
-            console.log(data)
             if(data.errors){
             usernameError.innerText = data.errors.username
             emailError.innerText = data.errors.email
@@ -178,7 +176,6 @@
             headers:{'Content-Type':'application/json'}
             })
             const data = await res.json()
-            console.log(data)
             if(data.error){
             mailError.innerText = data.error
             }

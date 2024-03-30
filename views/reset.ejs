@@ -56,7 +56,6 @@
             headers:{'Content-Type':'application/json'}
           })
           const data = await res.json()
-          console.log(data)
           if(data.error === 'invalid signature'||data.error === 'jwt expired'){
             alert(`${data.error}.Request new reset link`);
           }
