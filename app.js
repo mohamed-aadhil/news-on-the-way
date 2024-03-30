@@ -165,7 +165,6 @@ app.get('/resetPassword/:id/:token',async(req,res)=>{
     }
     else{
         res.render('reset');
-        res.status(200).json({success:'redirected to reset password.'});
     }
 })
 })
