@@ -4,12 +4,15 @@
   "description": "The News Web App",
   "main": "app.js",
   "scripts": {
-    "start":"nodemon app.js",
+    "start":"node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Mohamed Aadhil A",
   "license": "ISC",
+  "engines": {
+    "node": "20.9.0"
+  },
   "dependencies": {
     "axios": "^1.4.0",
     "bcrypt": "^5.1.1",

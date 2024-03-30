@@ -14,7 +14,7 @@ const {checkUser} = require("./middleware/auth.js");
 
 //Initializing server
 const app = express();
-app.listen(process.env.PORT)
+app.listen(process.env.PORT || 8080)
 
 //mounting middlewares
 app.use(express.json())
