@@ -29,7 +29,7 @@ app.set('view engine','ejs');
 mongoose.connect(process.env.DATABASE_URL);
 
 //requirements for external REST API(NEWS API) calls 
-const country = "in";
+const country = "us";
 const api_key = process.env.API_KEY;
 const pageSize = 15;
 
